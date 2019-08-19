@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Chilly</title>
+<link rel="stylesheet" href="static/css/bootstrap.min.css">
+<script type="text/javascript">
+function turnOn() {
+	fetch("/OnLight", { method: "POST" });
+}
+
+function turnOff() {
+	fetch("/OffLight", { method: "POST" });
+}
+
+function onMotor() {
+	fetch("/OnMotor", { method: "POST" });
+}
+
+function offMotor() {
+	fetch("/OffMotor", { method: "POST" });
+}
+
+function waterGreen() {
+	fetch("/WaterGreen", { method: "POST" });
+}
+
+function waterViolet() {
+	fetch("/WaterViolet", { method: "POST" });
+}
+
+function waterOrange() {
+	fetch("/WaterOrange", { method: "POST" });
+}
+
+function waterBlue() {
+	fetch("/WaterBlue", { method: "POST" });
+}
+
+function updateRoom() {
+	fetch("/room", { method: "GET" })
+		.then(resp => resp.json())
+		.then(data => {
+			console.log(data.Temperature + " " + data.Humidity)
+			document.getElementById('room_temperature').innerHTML = data.Temperature
+			document.getElementById('room_himidity').innerHTML = data.Humidity
+		})
+}
+setInterval(updateRoom, 1000)
+</script>
+<style type="text/css">
+	.buttons {
+		padding: 5px;
+	}
+	.btn-very-lg {
+		padding: 1.5rem 2rem;
+		font-size: 2.25rem;
+		line-height: 2.5;
+		border-radius: .3rem;
+	}
+	.metric-group {
+	}
+	.metric {
+		font-size: 2.25rem;
+		display: inline;
+		padding: 5px;
+	}
+	.metric-label {
+		font-size: 2.25rem;
+		display: inline;
+		padding: 5px;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="metric-group">
+			<div class="metric-label">Температура</div>
+			<div id="room_temperature" class="metric">0</div>
+			<div class="metric-label">Влажность</div>
+			<div id="room_himidity" class="metric">0</div>
+		</div>
+		<div class="buttons">
+			<button onclick="turnOn()" type="button" class="btn btn-success btn-very-lg">On</button>
+			<button onclick="turnOff()" type="button" class="btn btn-danger btn-very-lg">Off</button>
+		</div>
+		<div class="buttons">
+			<button onclick="onMotor()" type="button" class="btn btn-success btn-very-lg">On motor</button>
+			<button onclick="offMotor()" type="button" class="btn btn-danger btn-very-lg">Off motor</button>
+		</div>
+		<div class="buttons">
+			<button onclick="waterGreen()" type="button" class="btn btn-success btn-very-lg" style="background-color:Green;">Green</button>
+			<button onclick="waterViolet()" type="button" class="btn btn-success btn-very-lg" style="background-color:Violet;">Violet</button>
+			<button onclick="waterOrange()" type="button" class="btn btn-success btn-very-lg" style="background-color:Orange;">Orange</button>
+			<button onclick="waterBlue()" type="button" class="btn btn-success btn-very-lg" style="background-color:Blue;">Blue</button>
+		</div>
+	</div>
+</body>
+</html>
